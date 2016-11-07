@@ -24,6 +24,8 @@ Route::group(['middleware' => 'auth', 'prefix' => '/panel', 'namespace' => 'Pane
     Route::any('usuarios/editar/{id}', 'UsuariosController@editar');
 
     /* Mantenimiento */
+    Route::get('actividades', 'ActividadesController@index');
+    Route::any('actividades/editar/{id}', 'ActividadesController@editar');
 
     Route::get('organizaciones', 'OrganizacionesController@index');
     Route::any('organizaciones/editar/{id}', 'OrganizacionesController@editar');

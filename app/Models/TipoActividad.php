@@ -4,6 +4,7 @@ namespace App\Models;
 use \Illuminate\Database\Eloquent\Model;
 
 use Cviebrock\EloquentSluggable\Sluggable;
+use DB;
 
 class TipoActividad extends Model {
 
@@ -27,4 +28,18 @@ class TipoActividad extends Model {
             ]
         ];
     }
+
+    public function actividades(){
+        return $this->hasMany('App\Models\Actividad', 'tipo_actividad_id');
+    }
+
+    public static function dameTiposActividad(){
+        $cats = DB::select("SELECT id, nombre FROM tipos_actividad");
+        $rows = [NULL=>'Selecciona un tipo de Actividad'];
+        foreach($cats as $cat){
+            $rows[$cat->id] = $cat->nombre;
+        }
+        return $rows;
+    }
+
 }

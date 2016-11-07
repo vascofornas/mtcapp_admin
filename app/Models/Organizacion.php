@@ -21,6 +21,10 @@ class Organizacion extends Model {
         return $this->hasMany('App\Models\Organizacion', 'organizacion_padre_id');
     }
 
+    public function actividades(){
+        return $this->hasMany('App\Models\Actividad', 'organizacion_id');
+    }
+
     public function parent(){
         return $this->belongsTo('App\Models\Organizacion', 'organizacion_padre_id');
     }
