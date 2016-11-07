@@ -1,0 +1,16 @@
+/**/
+header.navbar a.navbar-brand {background-image: none;
+    line-height: 40px;
+    text-align: center; }
+.pagination li span {
+    position: relative;
+    float: left;
+    padding: 0.5rem 0.75rem;
+    margin-left: -1px;
+    text-decoration: none;
+    background-color: #fff;
+    border: 1px solid #ddd;
+}
+
+.tt-dropdown-menu {background-color: #fff; width: 150%;}
+.twitter-typeahead { clear: both; width: 300px; }
