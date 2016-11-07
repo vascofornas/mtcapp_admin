@@ -109,7 +109,7 @@ class OrganizacionesController extends Controller
         $grid = DataGrid::source( (new Organizacion())->whereNotNull('organizacion_padre_id') );
         $grid->add('nombre','Nombre', true); //field name, label, sortable
         //$grid->add('slug','Etiqueta', true);
-        $grid->add('direccion', 'Direcci&oacute;n', true);
+        //$grid->add('direccion', 'Direcci&oacute;n', true);
         //O(n) something
         $grid->add('organizacion_id', 'Organización Base')->cell(function($value, $row){
             return $row->parent ? $row->parent->nombre : '';
@@ -123,6 +123,7 @@ class OrganizacionesController extends Controller
             return '<a href="/panel/'.$this->path.'/suborganizacion/'.$row->id.'">Editar</a>';
         });
 
+        $grid->link('/panel/'.$this->path, "Listado de Organizaciones", "TR");  //add button
         $grid->link('/panel/'.$this->path.'/suborganizacion/0', "+ Agregar nueva Sub-Organización", "TR");  //add button
         $grid->orderBy('id','desc'); //default orderby
         $grid->paginate(10); //pagination
@@ -147,7 +148,7 @@ class OrganizacionesController extends Controller
         $form->add('mapa','Ubicaci&oacute;n','App\Utils\MapWithKey')
             ->latlon('latitud','longitud')->setKey(env('GOOGLE_MAP_KEY'))->zoom(15)->setMapWidth(700)->setMapHeight(400);
         $form->add('descripcion', 'Descripci&oacute;n','textarea');
-        $form->add('direccion', 'Direcci&oacute;n','text')->rule('required');
+        $form->add('direccion', 'Direcci&oacute;n','text');
         $form->add('imagen','Imagen', 'image')->move('uploads/images/organizaciones/')->preview(80,80)->fit(320,320);
         $form->add('url', 'Página Web', 'text');
         $form->add('url_facebook', 'Fan Page de Facebook', 'text');
@@ -165,7 +166,7 @@ class OrganizacionesController extends Controller
             } else {
                 $form->message("Organización actualizada!");
             }
-            $form->link("/panel/".$this->path."/suborganizaciones","Regresar al listado");
+            $form->link("/panel/".$this->path."/suborganizaciones","Regresar al listado de Sub-organizaciones");
             $form->link("/panel/".$this->path."/suborganizacion/0","Crear una nueva Sub-Organización");
 
             if($form->model->id){

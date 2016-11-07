@@ -20,6 +20,8 @@ Auth::routes();
 Route::group(['middleware' => 'auth', 'prefix' => '/panel', 'namespace' => 'Panel'], function () {
     Route::get('/', 'IndexController@index');
 
+    Route::get('usuarios', 'UsuariosController@index');
+    Route::any('usuarios/editar/{id}', 'UsuariosController@editar');
 
     /* Mantenimiento */
 
