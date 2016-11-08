@@ -16,10 +16,10 @@ class QueHacerController extends Controller {
         $tipos_actividad = TipoActividad::select(['id', 'nombre'])->orderBy('nombre')->get();
 
         foreach($concejalias as &$concejalia){
-            $concejalia->url = '/api/que-hacer/concejalia/'.$concejalia->id;
+            $concejalia->url_api = '/api/que-hacer/concejalia/'.$concejalia->id;
         }
         foreach($tipos_actividad as &$tipo_actividad){
-            $tipo_actividad->url = '/api/que-hacer/tipo-actividad/'.$tipo_actividad->id;
+            $tipo_actividad->url_api = '/api/que-hacer/tipo-actividad/'.$tipo_actividad->id;
         }
         return [
             'concejalias' => $concejalias,
