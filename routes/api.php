@@ -19,7 +19,7 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:api');
 */
 
-Route::group(['namespace' => 'Api'], function () {
+Route::group(['namespace' => 'Api','middleware' => 'cors'], function () {
 
     /* Why u no restful */
     Route::get('/que-hacer', 'QueHacerController@index');

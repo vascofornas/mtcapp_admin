@@ -30,35 +30,13 @@ class QueHacerController extends Controller {
     function concejalia($id=0){
         /* Devolvemos el listado de actividades que corresponden a una concejalia */
         $actividades = Actividad::where('concejalia_id','=', $id)->orderBy('titulo')->get();
-        foreach($actividades as &$actividad){
-            if($actividad->imagen) {
-                unset($actividad->created_at);
-                unset($actividad->updated_at);
-                unset($actividad->deleted_at);
-                unset($actividad->organizacion_id);
-                unset($actividad->concejalia_id);
-                unset($actividad->tipo_actividad_id);
-                $actividad->imagen = '/uploads/images/actividades/'.$actividad->imagen;
-            }
-        }
-        return ['actividades'=>$actividades];
+        return ['actividades'=>$this->prepararActividades($actividades)];
     }
 
     function tipo_actividad($id=0){
         /* Devolvemos el listado de actividades que corresponden a un tipo de actividad */
         $actividades = Actividad::where('tipo_actividad_id','=', $id)->orderBy('titulo')->get();
-        foreach($actividades as &$actividad){
-            if($actividad->imagen) {
-                unset($actividad->created_at);
-                unset($actividad->updated_at);
-                unset($actividad->deleted_at);
-                unset($actividad->organizacion_id);
-                unset($actividad->concejalia_id);
-                unset($actividad->tipo_actividad_id);
-                $actividad->imagen = '/uploads/images/actividades/'.$actividad->imagen;
-            }
-        }
-        return ['actividades'=>$actividades];
+        return ['actividades'=>$this->prepararActividades($actividades)];
     }
 
     function agenda($fecha){
@@ -78,7 +56,14 @@ class QueHacerController extends Controller {
 
         $actividades = Actividad::whereDate('fecha_inicio', '=', $y.'-'.$m.'-'.$d)
             ->orderBy('titulo')->get();
-        
+        return ['actividades'=>$this->prepararActividades($actividades)];
+    }
+
+    function detalle($id=0){
+        /* Detalle de actividad */
+    }
+
+    protected function prepararActividades($actividades){
         foreach($actividades as &$actividad){
             if($actividad->imagen) {
                 unset($actividad->created_at);
@@ -90,11 +75,7 @@ class QueHacerController extends Controller {
                 $actividad->imagen = '/uploads/images/actividades/'.$actividad->imagen;
             }
         }
-        return ['actividades'=>$actividades];
-    }
-
-    function detalle($id=0){
-        /* Detalle de actividad */
+        return $actividades;
     }
 
 }
