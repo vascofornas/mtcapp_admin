@@ -72,7 +72,7 @@ class ActividadesController extends Controller
         $form->add('tipo_actividad_id', 'Tipo Actividad', 'select')->options(TipoActividad::dameTiposActividad())->rule('required');
         $form->add('organizacion.nombre','Organización','autocomplete')->search(['nombre'])->extra('Ingresar texto para buscar una Organización')->rule('required');
 
-        $form->add('imagen','Imagen', 'image')->move('uploads/images/actividades/')->preview(160,80)->fit(320,160);
+        $form->add('imagen','Imagen', 'image')->move('uploads/images/actividades/')->preview(80,80)->fit(320,320);
 
         $form->add('fecha_inicio', 'Fecha de Inicio', 'datetime')->rule('required|after:yesterday');
         $form->add('fecha_fin', 'Fecha Finalización', 'datetime')->rule('after:fecha_inicio');

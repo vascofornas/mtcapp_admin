@@ -13,6 +13,19 @@ use Illuminate\Http\Request;
 |
 */
 
+/*
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:api');
+*/
+
+Route::group(['namespace' => 'Api'], function () {
+
+    /* Why u no restful */
+    Route::get('/que-hacer', 'QueHacerController@index');
+    Route::get('/que-hacer/concejalia/{id}', 'QueHacerController@concejalia');
+    Route::get('/que-hacer/tipo-actividad/{id}', 'QueHacerController@concejalia');
+    Route::get('/que-hacer/agenda/{fecha}', 'QueHacerController@agenda');
+    Route::get('/que-hacer/detalle/{id}', 'QueHacerController@detalle'); //??
+
+});
