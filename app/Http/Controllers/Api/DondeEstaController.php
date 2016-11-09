@@ -25,7 +25,7 @@ class DondeEstaController extends Controller {
         }
 
         /* Organizaciones base pertenecientes a una categoría */
-        $organizaciones = Organizacion::where('tipo_organizacion_id','=',$categoria_id)
+        $organizaciones = Organizacion::where('tipo_ubicacion_id','=',$categoria_id)
             ->selectRaw('*, (SELECT COUNT(*) FROM organizaciones AS o WHERE o.organizacion_padre_id = organizaciones.id) AS numero_hijos')
             ->get();
         foreach($organizaciones as &$organizacion){

@@ -31,4 +31,7 @@ Route::group(['namespace' => 'Api','middleware' => 'cors'], function () {
     Route::get('/donde-esta/categoria/{id?}', 'DondeEstaController@categoria');
     Route::get('/donde-esta/detalle/{id}', 'DondeEstaController@detalle');
 
+    Route::get('/que-necesito/index', 'QueNecesitoController@index');
+    Route::get('/que-necesito/organizaciones/{id}', 'QueNecesitoController@organizaciones');
+
 });
