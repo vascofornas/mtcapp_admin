@@ -25,7 +25,7 @@ class OrganizacionesController extends Controller
      */
     public function index()
     {
-        $grid = DataGrid::source( (new Organizacion())->whereNull('organizacion_padre_id') );
+        $grid = DataGrid::source( new Organizacion() );
         $grid->add('nombre','Nombre', true); //field name, label, sortable
         $grid->add('direccion', 'Direcci&oacute;n', true);
 
@@ -34,20 +34,22 @@ class OrganizacionesController extends Controller
         });
 
         //O(n) something
+        $grid->add('organizacion_id', 'Organización Base')->cell(function($value, $row){
+            return $row->parent ? $row->parent->nombre : '';
+        });
         $grid->add('tipo_ubicacion_id', 'Tipo Ubicación')->cell(function($value, $row){
             return $row->tipoUbicacion ? $row->tipoUbicacion->nombre : '';
         });
         $grid->add('tipo_organizacion_id', 'Tipo Organización')->cell(function($value, $row){
             return $row->tipoOrganizacion ? $row->tipoOrganizacion->nombre : '';
         });
-
         $grid->add('id','Opciones')->cell( function( $value, $row) {
             return '<a href="/panel/'.$this->path.'/editar/'.$row->id.'">Editar</a>';
         });
 
-        $grid->link('/panel/'.$this->path.'/suborganizaciones', "Listado de Sub-Organizaciones", "TR");  //add button
+        //$grid->link('/panel/'.$this->path.'/suborganizaciones', "Listado de Sub-Organizaciones", "TR");  //add button
         $grid->link('/panel/'.$this->path.'/editar/0', "+ Agregar nueva Organización", "TR");  //add button
-        $grid->link('/panel/'.$this->path.'/suborganizacion/0', "+ Agregar nueva Sub-Organización", "TR");  //add button
+        //$grid->link('/panel/'.$this->path.'/suborganizacion/0', "+ Agregar nueva Sub-Organización", "TR");  //add button
         $grid->orderBy('id','desc'); //default orderby
         $grid->paginate(10); //pagination
 
@@ -71,12 +73,18 @@ class OrganizacionesController extends Controller
 
         $form = DataEdit::source($obj);
         $form->add('nombre','Nombre', 'text')->rule('required'); //field name, label, type
-        $form->add('tipo_ubicacion_id', 'Tipo Ubicación', 'select')->options(TipoUbicacion::dameTipos());
-        $form->add('tipo_organizacion_id', 'Tipo Organización', 'select')->options(TipoOrganizacion::dameTipos());
+
+        $form->add('parent.nombre','Organización Base','autocomplete')->search(['nombre'])
+            ->extra('Ingresar texto para buscar una Organización Padre.<br />');
+        $form->add('tipo_ubicacion_id', 'Tipo Ubicación', 'select')->options(TipoUbicacion::dameTipos())
+            ->extra('Elegir un tipo de Ubicación (Sección ¿Qué Necesito?)');
+        $form->add('tipo_organizacion_id', 'Tipo Organización', 'select')->options(TipoOrganizacion::dameTipos())
+            ->extra('Elegir un tipo de Organización (Sección ¿Donde Está?)');
         $form->add('mapa','Ubicaci&oacute;n','App\Utils\MapWithKey')
             ->latlon('latitud','longitud')->setKey(env('GOOGLE_MAP_KEY'))->zoom(15)->setMapWidth(700)->setMapHeight(400);
         $form->add('descripcion', 'Descripci&oacute;n','textarea');
-        $form->add('direccion', 'Direcci&oacute;n','text')->rule('required');
+        $form->add('direccion', 'Direcci&oacute;n','text')
+            ->extra('Para las organizaciones dependientes de una Organización Padre el llenado es opcional');
         $form->add('imagen','Imagen', 'image')->move('uploads/images/organizaciones/')->preview(80,80)->fit(320,320);
         $form->add('url', 'Página Web', 'text');
         $form->add('url_facebook', 'Fan Page de Facebook', 'text');
@@ -97,13 +105,12 @@ class OrganizacionesController extends Controller
             if($form->model->id){
                 $form->link("/panel/".$this->path."/editar/".$form->model->id,"Editar organización anterior");
             }
-            $form->link("/panel/".$this->path."/suborganizacion/0","Crear una nueva Sub-Organización");
-
         });
 
         return view('pages.panel.'.$this->path.'.form', compact('form'));
     }
 
+    /**
     public function suborganizaciones()
     {
         $grid = DataGrid::source( (new Organizacion())->whereNotNull('organizacion_padre_id') );
@@ -177,5 +184,5 @@ class OrganizacionesController extends Controller
 
         return view('pages.panel.'.$this->path.'.form', compact('form'));
     }
-
+    */
 }
