@@ -75,7 +75,8 @@ class OrganizacionesController extends Controller
         $form->add('nombre','Nombre', 'text')->rule('required'); //field name, label, type
 
         $form->add('parent.nombre','Organización Base','autocomplete')->search(['nombre'])
-            ->extra('<br />Ingresar texto para buscar una Organización Padre. (Opcional)');
+            ->extra('<br />Ingresar texto para buscar una Organización Padre. (Opcional)
+                    <br />Si se llena este campo, el tipo de Organización debe dejarse en blanco');
         $form->add('tipo_ubicacion_id', 'Tipo Ubicación', 'select')->options(TipoUbicacion::dameTipos())
             ->extra('Elegir un tipo de Ubicación (Para agregar la Organización actual a la sección ¿Qué Necesito?)');
         $form->add('tipo_organizacion_id', 'Tipo Organización', 'select')->options(TipoOrganizacion::dameTipos())
