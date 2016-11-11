@@ -75,18 +75,18 @@ class OrganizacionesController extends Controller
         $form->add('nombre','Nombre', 'text')->rule('required'); //field name, label, type
 
         $form->add('parent.nombre','Organización Base','autocomplete')->search(['nombre'])
-            ->extra('Ingresar texto para buscar una Organización Padre.<br />');
+            ->extra('<br />Ingresar texto para buscar una Organización Padre. (Opcional)');
         $form->add('tipo_ubicacion_id', 'Tipo Ubicación', 'select')->options(TipoUbicacion::dameTipos())
-            ->extra('Elegir un tipo de Ubicación (Sección ¿Qué Necesito?)');
+            ->extra('Elegir un tipo de Ubicación (Para agregar la Organización actual a la sección ¿Qué Necesito?)');
         $form->add('tipo_organizacion_id', 'Tipo Organización', 'select')->options(TipoOrganizacion::dameTipos())
-            ->extra('Elegir un tipo de Organización (Sección ¿Donde Está?)');
+            ->extra('Elegir un tipo de Organización (Para agregar la Organización actual a la sección ¿Donde Está?)');
         $form->add('mapa','Ubicaci&oacute;n','App\Utils\MapWithKey')
             ->latlon('latitud','longitud')->setKey(env('GOOGLE_MAP_KEY'))->zoom(15)->setMapWidth(700)->setMapHeight(400);
         $form->add('descripcion', 'Descripci&oacute;n','textarea');
         $form->add('direccion', 'Direcci&oacute;n','text')
-            ->extra('Para las organizaciones dependientes de una Organización Padre el llenado es opcional');
+            ->extra('El llenado es opcional, para las organizaciones dependientes de una Organización Base');
         $form->add('imagen','Imagen', 'image')->move('uploads/images/organizaciones/')->preview(80,80)->fit(320,320);
-        $form->add('url', 'Página Web', 'text');
+        $form->add('url', 'Página Web', 'text')->extraAttributes(['placeholder'=>'http://pagina.com']);
         $form->add('url_facebook', 'Fan Page de Facebook', 'text');
         $form->add('url_twitter', 'Página de Twitter', 'text');
         $form->add('url_youtube', 'Página del Canal Youtube', 'text');

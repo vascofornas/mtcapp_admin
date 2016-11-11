@@ -70,7 +70,8 @@ class ActividadesController extends Controller
 
         $form->add('concejalia_id', 'Concejalia', 'select')->options(Concejalia::dameConcejalias())->rule('required');
         $form->add('tipo_actividad_id', 'Tipo Actividad', 'select')->options(TipoActividad::dameTiposActividad())->rule('required');
-        $form->add('organizacion.nombre','Organización','autocomplete')->search(['nombre'])->extra('Ingresar texto para buscar una Organización')->rule('required');
+        $form->add('organizacion.nombre','Organización','autocomplete')->search(['nombre'])
+            ->extra('<br />Ingresar texto para buscar una Organización')->rule('required');
 
         $form->add('imagen','Imagen', 'image')->move('uploads/images/actividades/')->preview(80,80)->fit(320,320);
 
