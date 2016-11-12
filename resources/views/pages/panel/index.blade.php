@@ -8,7 +8,7 @@
 
 @section('content')
     <div class="card">
-        <div class="card-header">Bienvenido al administrador de la aplicación Tres Cantos</div>
+        <div class="card-header">Bienvenido al administrador de la aplicación Muevete por Tres Cantos</div>
         <div class="card-block">
             Seleccione una de las opciones del menú lateral
         </div>

@@ -30,6 +30,9 @@ class DondeEstaController extends Controller {
             ->get();
         foreach($organizaciones as &$organizacion){
             $organizacion->url_api = '/api/donde-esta/detalle/'.$organizacion->id;
+            if($organizacion->imagen) {
+                $organizacion->imagen = '/uploads/images/organizaciones/'.$organizacion->imagen;
+            }
         }
 
         return [
@@ -49,6 +52,9 @@ class DondeEstaController extends Controller {
         /* Por si las moscas */
         foreach($organizaciones as &$organizacion){
             $organizacion->url_api = '/api/donde-esta/detalle/'.$organizacion->id;
+            if($organizacion->imagen) {
+                $organizacion->imagen = '/uploads/images/organizaciones/'.$organizacion->imagen;
+            }
         }
 
         return [
