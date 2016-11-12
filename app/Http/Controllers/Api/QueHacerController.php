@@ -29,13 +29,17 @@ class QueHacerController extends Controller {
 
     function concejalia($id=0){
         /* Devolvemos el listado de actividades que corresponden a una concejalia */
-        $actividades = Actividad::where('concejalia_id','=', $id)->orderBy('titulo')->get();
+        $actividades = Actividad::select(['actividades.id','titulo','actividades.imagen','fecha_inicio','fecha_fin', 'organizaciones.nombre as organizacion_nombre'])
+            ->join('organizaciones', 'organizaciones.id','=','actividades.organizacion_id')
+            ->where('concejalia_id','=', $id)->orderBy('titulo')->get();
         return ['actividades'=>$this->prepararActividades($actividades)];
     }
 
     function tipo_actividad($id=0){
         /* Devolvemos el listado de actividades que corresponden a un tipo de actividad */
-        $actividades = Actividad::where('tipo_actividad_id','=', $id)->orderBy('titulo')->get();
+        $actividades = Actividad::select(['actividades.id','titulo','actividades.imagen','fecha_inicio','fecha_fin', 'organizaciones.nombre as organizacion_nombre'])
+            ->join('organizaciones', 'organizaciones.id','=','actividades.organizacion_id')
+            ->where('tipo_actividad_id','=', $id)->orderBy('titulo')->get();
         return ['actividades'=>$this->prepararActividades($actividades)];
     }
 
@@ -54,7 +58,9 @@ class QueHacerController extends Controller {
         if($m <10) { $m = '0'.$m; }
         if($d <10) { $d = '0'.$d; }
 
-        $actividades = Actividad::whereDate('fecha_inicio', '=', $y.'-'.$m.'-'.$d)
+        $actividades = Actividad::select(['actividades.id','titulo','actividades.imagen','fecha_inicio','fecha_fin', 'organizaciones.nombre as organizacion_nombre'])
+            ->join('organizaciones', 'organizaciones.id','=','actividades.organizacion_id')
+            ->whereDate('fecha_inicio', '=', $y.'-'.$m.'-'.$d)
             ->orderBy('titulo')->get();
         return ['actividades'=>$this->prepararActividades($actividades)];
     }
@@ -66,12 +72,6 @@ class QueHacerController extends Controller {
     protected function prepararActividades($actividades){
         foreach($actividades as &$actividad){
             if($actividad->imagen) {
-                unset($actividad->created_at);
-                unset($actividad->updated_at);
-                unset($actividad->deleted_at);
-                unset($actividad->organizacion_id);
-                unset($actividad->concejalia_id);
-                unset($actividad->tipo_actividad_id);
                 $actividad->imagen = '/uploads/images/actividades/'.$actividad->imagen;
             }
         }

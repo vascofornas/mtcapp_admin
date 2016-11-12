@@ -5,13 +5,7 @@
                 <a class="nav-link" href="{{ url('/panel') }}">
                     <i class="icon-speedometer"></i> Bienvenidos</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ url('/panel/usuarios') }}">
-                    <i class="icon-speedometer"></i> Usuarios</a>
-            </li>
-            <li class="nav-item">
-                <hr />
-            </li>
+
             <li class="nav-item">
                 <a class="nav-link" href="{{ url('/panel/actividades') }}">
                     <i class="icon-speedometer"></i> Actividades</a>
@@ -19,6 +13,13 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{ url('/panel/organizaciones') }}">
                     <i class="icon-speedometer"></i> Organizaciones</a>
+            </li>
+            <li class="nav-item">
+                <hr />
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url('/panel/usuarios') }}">
+                    <i class="icon-speedometer"></i> Usuarios</a>
             </li>
             <li class="nav-item">
                 <hr />

@@ -2,6 +2,7 @@
 
 @section('head')
     {!! Rapyd::styles() !!}
+    <link rel="stylesheet" href="{{ asset('packages/zofe/rapyd/assets/autocomplete/autocomplete.css') }}" />
 @endsection
 
 @section('breadcrumb')
