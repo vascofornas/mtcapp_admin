@@ -78,9 +78,9 @@ class OrganizacionesController extends Controller
             ->extra('<br />Ingresar texto para buscar una Organización Padre ya existente. (Opcional)
                     <br />Si se llena este valor, el campo Tipo de Organización debe dejarse en blanco');
         $form->add('tipo_ubicacion_id', 'Tipo de Ubicación', 'select')->options(TipoUbicacion::dameTipos())
-            ->extra('Elegir un tipo de Ubicación (Para agregar esta Organización actual a la sección ¿Qué Necesito?)');
+            ->extra('Elegir un tipo de Ubicación (Para agregar esta Organización actual a la sección ¿Donde Está?)');
         $form->add('tipo_organizacion_id', 'Tipo de Organización', 'select')->options(TipoOrganizacion::dameTipos())
-            ->extra('Elegir un tipo de Organización (Para agregar esta Organización actual a la sección ¿Donde Está?)');
+            ->extra('Elegir un tipo de Organización (Para agregar esta Organización actual a la sección ¿Qué Necesito?)');
         $form->add('mapa','Ubicaci&oacute;n','App\Utils\MapWithKey')
             ->latlon('latitud','longitud')->setKey(env('GOOGLE_MAP_KEY'))->zoom(15)->setMapWidth(700)->setMapHeight(400);
         $form->add('descripcion', 'Descripci&oacute;n','textarea');

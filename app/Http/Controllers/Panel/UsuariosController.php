@@ -43,7 +43,7 @@ class UsuariosController extends Controller
         $form->add('name','Nombre', 'text')->rule('required');
         $form->add('email','Correo electr&oacute;nico', 'text')->rule('required|unique:users,email,'.$id);
 
-        $form->add('password','Contraseña', 'password')->rule('size:6');
+        $form->add('password','Contraseña', 'password')->rule('min:6');
         $form->add('password_repeat','Repetir contraseña', 'password')->rule('required_with:password');
 
         $form->saved(function() use ($form, $id)
