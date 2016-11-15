@@ -27,10 +27,10 @@ class TiposOrganizacionController extends Controller
         //$grid->add('slug','Etiqueta', true);
 
         $grid->add('id','Opciones')->cell( function( $value, $row) {
-            return '<a href="/panel/'.$this->path.'/editar/'.$row->id.'">Editar</a>';
+            return '<a href="'.url('/panel/'.$this->path.'/editar/'.$row->id).'">Editar</a>';
         });
 
-        $grid->link('/panel/'.$this->path.'/editar/0', "+ Agregar nuevo tipo de organizacion", "TR");  //add button
+        $grid->link(url('/panel/'.$this->path.'/editar/0'), "+ Agregar nuevo tipo de organizacion", "TR");  //add button
         $grid->orderBy('id','desc'); //default orderby
         $grid->paginate(10); //pagination
 
@@ -61,11 +61,11 @@ class TiposOrganizacionController extends Controller
             } else {
                 $form->message("Tipo de organización actualizado!");
             }
-            $form->link("/panel/".$this->path,"Regresar al listado");
-            $form->link("/panel/".$this->path."/editar/0","Crear un nuevo tipo de organización");
+            $form->link(url("/panel/".$this->path),"Regresar al listado");
+            $form->link(url("/panel/".$this->path."/editar/0"),"Crear un nuevo tipo de organización");
 
             if($form->model->id){
-                $form->link("/panel/".$this->path."/editar/".$form->model->id,"Editar tipo de organización anterior");
+                $form->link(url("/panel/".$this->path."/editar/".$form->model->id),"Editar tipo de organización anterior");
             }
         });
 

@@ -27,11 +27,11 @@ class ConcejaliasController extends Controller
         //$grid->add('slug','Etiqueta', true);
 
         $grid->add('id','Opciones')->cell( function( $value, $row) {
-            return '<a href="/panel/concejalias/editar/'.$row->id.'">Editar</a>';
+            return '<a href="'.url('/panel/concejalias/editar/'.$row->id).'">Editar</a>';
         });
         //$grid->edit('/panel/concejalias/editar', 'Opciones');
 
-        $grid->link('/panel/concejalias/editar/0', "+ Agregar nueva concejal&iacute;a", "TR");  //add button
+        $grid->link(url('/panel/concejalias/editar/0'), "+ Agregar nueva concejal&iacute;a", "TR");  //add button
         $grid->orderBy('id','desc'); //default orderby
         $grid->paginate(10); //pagination
 
@@ -62,11 +62,11 @@ class ConcejaliasController extends Controller
             } else {
                 $form->message("Concejal&iacute;a actualizada!");
             }
-            $form->link("/panel/concejalias","Regresar al listado");
-            $form->link("/panel/concejalias/editar/0","Crear una nueva concejal&iacute;a");
+            $form->link(url("/panel/concejalias"),"Regresar al listado");
+            $form->link(url("/panel/concejalias/editar/0"),"Crear una nueva concejal&iacute;a");
 
             if($form->model->id){
-                $form->link("/panel/concejalias/editar/".$form->model->id,"Editar concejal&iacute;a anterior");
+                $form->link(url("/panel/concejalias/editar/".$form->model->id),"Editar concejal&iacute;a anterior");
             }
         });
 

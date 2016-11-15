@@ -39,13 +39,13 @@ class ActividadesController extends Controller
             return $value ? date('Y/m/d', strtotime($value)) : '';
         });
         $grid->add('imagen', 'Imagen')->cell( function($value, $row) {
-            return $value ? '<img src="/uploads/images/actividades/'.$value.'" width="80" height="80" />' : '';
+            return $value ? '<img src="'.asset('uploads/images/actividades/'.$value).'" width="80" height="80" />' : '';
         });
         $grid->add('id','Opciones')->cell( function( $value, $row) {
-            return '<a href="/panel/'.$this->path.'/editar/'.$row->id.'">Editar</a>';
+            return '<a href="'.url('panel/'.$this->path.'/editar/'.$row->id).'">Editar</a>';
         });
 
-        $grid->link('/panel/'.$this->path.'/editar/0', "+ Agregar nueva actividad", "TR");  //add button
+        $grid->link(url('panel/'.$this->path.'/editar/0'), "+ Agregar nueva actividad", "TR");  //add button
         $grid->orderBy('id','desc'); //default orderby
         $grid->paginate(10); //pagination
 
@@ -75,8 +75,13 @@ class ActividadesController extends Controller
 
         $form->add('imagen','Imagen', 'image')->move('uploads/images/actividades/')->preview(80,80)->fit(320,320);
 
-        $form->add('fecha_inicio', 'Fecha de Inicio', 'datetime')->rule('required|after:yesterday');
-        $form->add('fecha_fin', 'Fecha Finalización', 'datetime')->rule('after:fecha_inicio');
+        if(!$id){
+            $form->add('fecha_inicio', 'Fecha de Inicio', 'datetime')->rule('required|after:yesterday');
+            $form->add('fecha_fin', 'Fecha Finalización', 'datetime')->rule('after:fecha_inicio');
+        } else {
+            $form->add('fecha_inicio', 'Fecha de Inicio', 'datetime')->rule('required');
+            $form->add('fecha_fin', 'Fecha Finalización', 'datetime')->rule('after:fecha_inicio');
+        }
 
         $form->saved(function() use ($form, $id)
         {
@@ -85,11 +90,11 @@ class ActividadesController extends Controller
             } else {
                 $form->message("Actividad actualizada!");
             }
-            $form->link("/panel/".$this->path,"Regresar al listado");
-            $form->link("/panel/".$this->path."/editar/0","Crear una nueva actividad");
+            $form->link(url("/panel/".$this->path),"Regresar al listado");
+            $form->link(url("/panel/".$this->path."/editar/0"),"Crear una nueva actividad");
 
             if($form->model->id){
-                $form->link("/panel/".$this->path."/editar/".$form->model->id,"Editar actividad anterior");
+                $form->link(url("/panel/".$this->path."/editar/").$form->model->id,"Editar actividad anterior");
             }
         });
 

@@ -6,24 +6,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Panel de administraci&oacute;n de aplicaci&oacute;n">
     <meta name="author" content="Donato Laynes">
-    <link rel="shortcut icon" href="/themes/coreui-static/img/favicon.png">
+    <link rel="shortcut icon" href="{{ asset('themes/coreui-static/img/favicon.png') }}">
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Icons -->
-    <link href="/themes/coreui-static/css/font-awesome.min.css" rel="stylesheet">
-    <link href="/themes/coreui-static/css/simple-line-icons.css" rel="stylesheet">
+    <link href="{{ asset('themes/coreui-static/css/font-awesome.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('themes/coreui-static/css/simple-line-icons.css') }}" rel="stylesheet">
 
     <!-- Main styles for this application -->
-    <link href="/themes/coreui-static/css/style.css" rel="stylesheet">
+    <link href="{{ asset('themes/coreui-static/css/style.css') }}" rel="stylesheet">
     <script>
         window.Laravel = <?php echo json_encode([
                 'csrfToken' => csrf_token(),
         ]); ?>
     </script>
-    <link rel="stylesheet" href="/css/admin.css" />
+    <link rel="stylesheet" href="{{ asset('css/admin.css')}}" />
     @yield('head')
 </head>
 <body class="navbar-fixed sidebar-nav fixed-nav">
@@ -81,11 +81,11 @@
     </footer>
 
     <!-- Scripts -->
-    <script src="/themes/coreui-static/bower_components/jquery/dist/jquery.min.js"></script>
-    <script src="/themes/coreui-static/bower_components/tether/dist/js/tether.min.js"></script>
-    <script src="/themes/coreui-static/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="/themes/coreui-static/js/app.js"></script>
-    <script src="/js/admin.js"></script>
+    <script src="{{ asset('themes/coreui-static/bower_components/jquery/dist/jquery.min.js') }}"></script>
+    <script src="{{ asset('themes/coreui-static/bower_components/tether/dist/js/tether.min.js') }}"></script>
+    <script src="{{ asset('themes/coreui-static/bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('themes/coreui-static/js/app.js') }}"></script>
+    <script src="{{ asset('js/admin.js') }}"></script>
     @yield('scripts')
 </body>
 </html>

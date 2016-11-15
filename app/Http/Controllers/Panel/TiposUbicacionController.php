@@ -28,13 +28,13 @@ class TiposUbicacionController extends Controller
         $grid->add('orderby', 'Orden', true);
         $grid->add('parent.nombre', 'Categor&iacute;a Padre', true);
         $grid->add('imagen', 'Imagen')->cell( function($value, $row) {
-           return $value ? '<img src="/uploads/images/tipos_ubicacion/'.$value.'" width="80" height="80" />' : '';
+           return $value ? '<img src="'.asset('/uploads/images/tipos_ubicacion/'.$value).'" width="80" height="80" />' : '';
         });
         $grid->add('id','Opciones')->cell( function( $value, $row) {
-            return '<a href="/panel/'.$this->path.'/editar/'.$row->id.'">Editar</a>';
+            return '<a href="'.url('/panel/'.$this->path.'/editar/'.$row->id).'">Editar</a>';
         });
 
-        $grid->link('/panel/'.$this->path.'/editar/0', "+ Agregar nuevo tipo de actividad", "TR");  //add button
+        $grid->link(url('/panel/'.$this->path.'/editar/0'), "+ Agregar nuevo tipo de actividad", "TR");  //add button
         $grid->orderBy('id','asc'); //default orderby
         $grid->paginate(10); //pagination
 
@@ -71,11 +71,11 @@ class TiposUbicacionController extends Controller
             } else {
                 $form->message("Tipo de Ubicaci&oacute;n actualizado!");
             }
-            $form->link("/panel/".$this->path,"Regresar al listado");
-            $form->link("/panel/".$this->path."/editar/0","Crear un nuevo tipo de ubicaci&oacute;n");
+            $form->link(url("/panel/".$this->path),"Regresar al listado");
+            $form->link(url("/panel/".$this->path."/editar/0"),"Crear un nuevo tipo de ubicaci&oacute;n");
 
             if($form->model->id){
-                $form->link("/panel/".$this->path."/editar/".$form->model->id,"Editar tipo de ubicaci&oacute;n anterior");
+                $form->link(url("/panel/".$this->path."/editar/".$form->model->id),"Editar tipo de ubicaci&oacute;n anterior");
             }
         });
 

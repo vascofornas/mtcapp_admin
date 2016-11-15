@@ -3,7 +3,7 @@
 @section('head')
 <style>
 .recordar { line-height: 100%; padding-left: 10px; padding-top: 10px; }
-    .default-layout { background: url("/img/background-logon-screen-windows-web-desktop-wallpaper-abstract.jpg") center center }
+    .default-layout { background: url("{{ asset('img/background-logon-screen-windows-web-desktop-wallpaper-abstract.jpg') }}") center center }
 </style>
 @endsection
 
