@@ -8,6 +8,8 @@ use App\Models\Concejalia;
 use App\Models\TipoActividad;
 use App\Models\Actividad;
 
+use Carbon\Carbon;
+
 class QueHacerController extends Controller {
 
     /* Devolvemos el listado de concejalias y tipos de actividad disponibles */
@@ -43,6 +45,20 @@ class QueHacerController extends Controller {
         return ['actividades'=>$this->prepararActividades($actividades)];
     }
 
+    function mes($mes,$anio){
+        $mes = (int) $mes;
+        $anio = (int) $anio;
+        $dia_max = cal_days_in_month(\CAL_GREGORIAN, $mes, $anio);
+
+        $min = Carbon::createFromDate($anio, $mes, 1);
+        $max = Carbon::createFromDate($anio, $mes, $dia_max);
+
+        $actividades = Actividad::select(['id','titulo','fecha_inicio','fecha_fin'])
+            ->whereBetween('fecha_inicio', [$min, $max])
+            ->orWhereBetween('fecha_fin', [$min, $max])->get();
+        return ['actividades'=>$actividades];
+    }
+
     function agenda($fecha){
         /* Devolvemos el listado de actividades que corresponden a una fecha en especial */
         $fecha_ex = explode('-', $fecha);
@@ -66,7 +82,12 @@ class QueHacerController extends Controller {
     }
 
     function detalle($id=0){
-        /* Detalle de actividad */
+        $actividad = Actividad::select(['actividades.id','actividades.descripcion','titulo','actividades.imagen','fecha_inicio','fecha_fin', 'organizaciones.nombre as organizacion_nombre'])
+            ->join('organizaciones', 'organizaciones.id','=','actividades.organizacion_id')->findOrFail($id);
+        if($actividad->imagen){
+            $actividad->imagen = '/uploads/images/actividades/'.$actividad->imagen;
+        }
+        return $actividad;
     }
 
     protected function prepararActividades($actividades){
@@ -74,7 +95,7 @@ class QueHacerController extends Controller {
             if($actividad->imagen) {
                 $actividad->imagen = '/uploads/images/actividades/'.$actividad->imagen;
             }
-        }
+        }        
         return $actividades;
     }
 

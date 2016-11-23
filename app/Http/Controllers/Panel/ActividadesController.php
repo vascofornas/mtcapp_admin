@@ -39,7 +39,7 @@ class ActividadesController extends Controller
             return $value ? date('Y/m/d', strtotime($value)) : '';
         });
         $grid->add('imagen', 'Imagen')->cell( function($value, $row) {
-            return $value ? '<img src="'.asset('uploads/images/actividades/'.$value).'" width="80" height="80" />' : '';
+            return $value ? '<img src="'.asset('uploads/images/actividades/'.$value).'" width="100" height="40" />' : '';
         });
         $grid->add('id','Opciones')->cell( function( $value, $row) {
             return '<a href="'.url('panel/'.$this->path.'/editar/'.$row->id).'">Editar</a>';
@@ -73,7 +73,9 @@ class ActividadesController extends Controller
         $form->add('organizacion.nombre','Organización','autocomplete')->search(['nombre'])
             ->extra('<br />Ingresar texto para buscar una Organización ya existente')->rule('required');
 
-        $form->add('imagen','Imagen', 'image')->move('uploads/images/actividades/')->preview(80,80)->fit(320,320);
+        $form->add('descripcion', 'Descripción', 'textarea')->rule('required');
+
+        $form->add('imagen','Imagen', 'image')->move('uploads/images/actividades/')->preview(400,160)->fit(800,320);
 
         if(!$id){
             $form->add('fecha_inicio', 'Fecha de Inicio', 'datetime')->rule('required|after:yesterday');
@@ -94,7 +96,7 @@ class ActividadesController extends Controller
             $form->link(url("/panel/".$this->path."/editar/0"),"Crear una nueva actividad");
 
             if($form->model->id){
-                $form->link(url("/panel/".$this->path."/editar/").$form->model->id,"Editar actividad anterior");
+                $form->link(url("/panel/".$this->path."/editar/".$form->model->id),"Editar actividad anterior");
             }
         });
 

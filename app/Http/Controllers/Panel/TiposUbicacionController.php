@@ -28,7 +28,7 @@ class TiposUbicacionController extends Controller
         $grid->add('orderby', 'Orden', true);
         $grid->add('parent.nombre', 'Categor&iacute;a Padre', true);
         $grid->add('imagen', 'Imagen')->cell( function($value, $row) {
-           return $value ? '<img src="'.asset('/uploads/images/tipos_ubicacion/'.$value).'" width="80" height="80" />' : '';
+           return $value ? '<img src="'.asset('/uploads/images/tipos_ubicacion/'.$value).'" width="80" height="40" />' : '';
         });
         $grid->add('id','Opciones')->cell( function( $value, $row) {
             return '<a href="'.url('/panel/'.$this->path.'/editar/'.$row->id).'">Editar</a>';

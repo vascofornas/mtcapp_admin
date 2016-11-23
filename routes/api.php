@@ -25,8 +25,9 @@ Route::group(['namespace' => 'Api','middleware' => 'cors'], function () {
     Route::get('/que-hacer', 'QueHacerController@index');
     Route::get('/que-hacer/concejalia/{id}', 'QueHacerController@concejalia');
     Route::get('/que-hacer/tipo-actividad/{id}', 'QueHacerController@concejalia');
+    Route::get('/que-hacer/mes/{mes}/{anio}', 'QueHacerController@mes');
     Route::get('/que-hacer/agenda/{fecha}', 'QueHacerController@agenda');
-    Route::get('/que-hacer/detalle/{id}', 'QueHacerController@detalle'); //??
+    Route::get('/que-hacer/detalle/{id}', 'QueHacerController@detalle');
 
     Route::get('/donde-esta/categoria/{id?}', 'DondeEstaController@categoria');
     Route::get('/donde-esta/detalle/{id}', 'DondeEstaController@detalle');

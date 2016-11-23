@@ -19,10 +19,10 @@ class UsuariosController extends Controller
         $grid->add('email', 'Correo Electrónico', true);
 
         $grid->add('id','Opciones')->cell( function( $value, $row) {
-            return '<a href="/panel/'.$this->path.'/editar/'.$row->id.'">Editar</a>';
+            return '<a href="'.url('/panel/'.$this->path.'/editar/'.$row->id).'">Editar</a>';
         });
 
-        $grid->link('/panel/'.$this->path.'/editar/0', "+ Agregar nuevo usuario", "TR");  //add button
+        $grid->link(url('/panel/'.$this->path.'/editar/0'), "+ Agregar nuevo usuario", "TR");  //add button
         $grid->orderBy('id','desc'); //default orderby
         $grid->paginate(10); //pagination
 
@@ -53,11 +53,11 @@ class UsuariosController extends Controller
             } else {
                 $form->message("Usuario actualizado!");
             }
-            $form->link("/panel/".$this->path,"Regresar al listado");
-            $form->link("/panel/".$this->path."/editar/0","Crear un nuevo usuario");
+            $form->link(url("/panel/".$this->path),"Regresar al listado");
+            $form->link(url("/panel/".$this->path."/editar/0"),"Crear un nuevo usuario");
 
             if($form->model->id){
-                $form->link("/panel/".$this->path."/editar/".$form->model->id,"Editar usuario anterior");
+                $form->link(url("/panel/".$this->path."/editar/".$form->model->id),"Editar usuario anterior");
             }
         });
 

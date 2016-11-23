@@ -13,7 +13,7 @@ class DondeEstaController extends Controller {
         $categoria_id = (int) $categoria_id;
 
         /* Obtenemos el listado de Tipos de Ubicación */
-        $qu = TipoUbicacion::select(['id','nombre']);
+        $qu = TipoUbicacion::select(['id','nombre','imagen']);
         if(!$categoria_id){
             $qu->whereNull('tipo_ubicacion_padre_id');
         } else {
@@ -21,6 +21,9 @@ class DondeEstaController extends Controller {
         }
         $tipos_ubicacion = $qu->orderBy('nombre')->get();
         foreach($tipos_ubicacion as &$tipo_ubicacion){
+            if($tipo_ubicacion->imagen) {
+                $tipo_ubicacion->imagen = '/uploads/images/tipos_ubicacion/'.$tipo_ubicacion->imagen;
+            }            
             $tipo_ubicacion->url_api = '/api/donde-esta/categoria/'.$tipo_ubicacion->id;
         }
 
