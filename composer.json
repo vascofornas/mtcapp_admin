@@ -10,7 +10,8 @@
         "zofe/rapyd": "^2.2",
         "doctrine/dbal": "^2.5",
         "cviebrock/eloquent-sluggable": "^4.1",
-        "barryvdh/laravel-cors": "^0.8.2"
+        "barryvdh/laravel-cors": "^0.8.2",
+        "barryvdh/laravel-debugbar": "^2.3"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

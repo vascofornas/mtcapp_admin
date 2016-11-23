@@ -182,6 +182,7 @@ return [
         Zofe\Rapyd\RapydServiceProvider::class,
         Cviebrock\EloquentSluggable\ServiceProvider::class,
         Barryvdh\Cors\ServiceProvider::class,
+        //Barryvdh\Debugbar\ServiceProvider::class,
     ],
 
     /*
