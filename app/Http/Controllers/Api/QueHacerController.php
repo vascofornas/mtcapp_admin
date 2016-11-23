@@ -75,21 +75,11 @@ class QueHacerController extends Controller {
         if($m < 10) $m = '0'.$m;
         if($d < 10) $d = '0'.$d;
 
-        //$dia_min = max(1, $d-1);
-        //$dia_max = min(cal_days_in_month(\CAL_GREGORIAN, $m, $y), $d+1);
-
-        //$min = Carbon::createFromDate($y, $m, $dia_min);
-        //$max = Carbon::createFromDate($y, $m, $dia_max);
-
-        \DB::enableQueryLog();
-
         $actividades = Actividad::select(['actividades.id','titulo','actividades.imagen','fecha_inicio','fecha_fin', 'organizaciones.nombre as organizacion_nombre'])
             ->join('organizaciones', 'organizaciones.id','=','actividades.organizacion_id')
             ->whereRaw( '"'.$y.'-'.$m.'-'.$d.'" BETWEEN DATE(fecha_inicio) AND DATE(fecha_fin)' )
-            //->whereBetween('fecha_inicio', [$min->format('Y-m-d')." 23:59:59", $max->format('Y-m-d')." 00:00:00"])
-            //->orWhereBetween('fecha_fin', [$min->format('Y-m-d')." 23:59:59", $max->format('Y-m-d')." 00:00:00"])
             ->orderBy('titulo')->get();
-        return ['actividades'=>$this->prepararActividades($actividades), 'log' => \DB::getQueryLog()];
+        return ['actividades'=>$this->prepararActividades($actividades)];
     }
 
     function detalle($id=0){
