@@ -11,6 +11,8 @@ use App\Models\Actividad;
 use Zofe\Rapyd\DataGrid\DataGrid;
 use Zofe\Rapyd\DataEdit\DataEdit;
 
+use DB;
+
 class ActividadesController extends Controller
 {
     protected $path = 'actividades';
@@ -22,6 +24,9 @@ class ActividadesController extends Controller
      */
     public function index()
     {
+        //ALTER TABLE `actividades` ADD `descripcion` TEXT NULL AFTER `fecha_fin` 
+        //ALTER TABLE `actividades` ADD `latitud` DECIMAL(10,8) NULL AFTER `descripcion`, ADD `longitud` DECIMAL(10,8) NULL AFTER `latitud`, ADD `website` VARCHAR(255) NULL AFTER `longitud`, ADD `telefono` VARCHAR(20) NULL AFTER `website`, ADD `email` VARCHAR(100) NULL AFTER `telefono`;
+
         $grid = DataGrid::source(new Actividad());
         $grid->add('titulo','Título', true); //field name, label, sortable
 
@@ -64,6 +69,8 @@ class ActividadesController extends Controller
         } else {
             $obj = new Actividad();
         }
+        if(!$obj->latitud) $obj->latitud = 40.426175;
+        if(!$obj->longitud) $obj->longitud = -3.685144;
 
         $form = DataEdit::source($obj);
         $form->add('titulo','Título', 'text')->rule('required'); //field name, label, type
@@ -75,7 +82,15 @@ class ActividadesController extends Controller
 
         $form->add('descripcion', 'Descripción', 'textarea')->rule('required');
 
-        $form->add('imagen','Imagen', 'image')->move('uploads/images/actividades/')->preview(400,160)->fit(800,320);
+        $form->add('imagen','Imagen', 'image')->move('uploads/images/actividades/')->preview(400,160)->fit(800,320)
+            ->extra('<br />Tamaño: 800 x 320');
+        $form->add('mapa','Ubicaci&oacute;n','App\Utils\MapWithKey')
+            ->latlon('latitud','longitud')->setKey(env('GOOGLE_MAP_KEY'))->zoom(15)->setMapWidth(700)->setMapHeight(400)
+                ->extra('<br />Arrastre el pin a las coordenadas de la actividad');
+
+        $form->add('website', 'Sitio Web', 'text')->extraAttributes(['placeholder'=>'http://pagina.com']);
+        $form->add('telefono', 'Teléfono', 'text');
+        $form->add('email', 'Email', 'text')->rule('email');
 
         if(!$id){
             $form->add('fecha_inicio', 'Fecha de Inicio', 'datetime')->rule('required|after:yesterday');

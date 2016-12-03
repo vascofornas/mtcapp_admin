@@ -26,7 +26,7 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ url('/panel/tipos-organizacion') }}">
-                    <i class="icon-speedometer"></i> Tipos organizaci&oacute;n</a>
+                    <i class="icon-speedometer"></i> &iquest;Qu&eacute; necesito?</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ url('/panel/concejalias') }}">
@@ -34,7 +34,7 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ url('/panel/tipos-ubicacion') }}">
-                    <i class="icon-speedometer"></i> Tipos de ubicaci&oacute;n</a>
+                    <i class="icon-speedometer"></i> &iquest;D&oacute;nde est&aacute;?</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ url('/panel/tipos-actividad') }}">

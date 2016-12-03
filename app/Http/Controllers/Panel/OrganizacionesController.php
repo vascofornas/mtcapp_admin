@@ -78,15 +78,17 @@ class OrganizacionesController extends Controller
             ->extra('<br />Ingresar texto para buscar una Organización Padre ya existente. (Opcional)
                     <br />Si se llena este valor, el campo Tipo de Organización debe dejarse en blanco');
         $form->add('tipo_ubicacion_id', 'Tipo de Ubicación', 'select')->options(TipoUbicacion::dameTipos())
-            ->extra('Elegir un tipo de Ubicación (Para agregar esta Organización actual a la sección ¿Donde Está?)');
+            ->extra('Elegir un tipo de Ubicación (Para agregar esta Organización actual a la sección ¿Donde Está? de la aplicación)');
         $form->add('tipo_organizacion_id', 'Tipo de Organización', 'select')->options(TipoOrganizacion::dameTipos())
-            ->extra('Elegir un tipo de Organización (Para agregar esta Organización actual a la sección ¿Qué Necesito?)');
+            ->extra('Elegir un tipo de Organización (Para agregar esta Organización actual a la sección ¿Qué Necesito? de la aplicación)');
         $form->add('mapa','Ubicaci&oacute;n','App\Utils\MapWithKey')
-            ->latlon('latitud','longitud')->setKey(env('GOOGLE_MAP_KEY'))->zoom(15)->setMapWidth(700)->setMapHeight(400);
+            ->latlon('latitud','longitud')->setKey(env('GOOGLE_MAP_KEY'))->zoom(15)->setMapWidth(700)->setMapHeight(400)
+            ->extra('<br />Arrastre el pin a las coordenadas de la organización');
         $form->add('descripcion', 'Descripci&oacute;n','textarea');
         $form->add('direccion', 'Direcci&oacute;n','text')
             ->extra('El llenado es opcional para las organizaciones dependientes de una Organización Base');
-        $form->add('imagen','Imagen', 'image')->move('uploads/images/organizaciones/')->preview(80,80)->fit(320,320);
+        $form->add('imagen','Imagen', 'image')->move('uploads/images/organizaciones/')->preview(80,80)->fit(320,320)
+            ->extra('<br />Tamaño mínimo: 320 x 320');
         $form->add('url', 'Página Web', 'text')->extraAttributes(['placeholder'=>'http://pagina.com']);
         $form->add('url_facebook', 'Fan Page de Facebook', 'text');
         $form->add('url_twitter', 'Página de Twitter', 'text');
