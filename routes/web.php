@@ -44,6 +44,9 @@ Route::group(['middleware' => 'auth', 'prefix' => '/panel', 'namespace' => 'Pane
     Route::get('tipos-organizacion', 'TiposOrganizacionController@index');
     Route::any('tipos-organizacion/editar/{id}', 'TiposOrganizacionController@editar');
 
+    Route::get('zonas-wifi', 'ZonasWifiController@index');
+    Route::any('zonas-wifi/editar/{id}', 'ZonasWifiController@editar');
+
 });
 
 

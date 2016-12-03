@@ -83,7 +83,7 @@ class QueHacerController extends Controller {
     }
 
     function detalle($id=0){
-        $actividad = Actividad::select(['actividades.id','actividades.descripcion','titulo','actividades.imagen','fecha_inicio','fecha_fin', 'organizaciones.nombre as organizacion_nombre'])
+        $actividad = Actividad::select(['actividades.id','actividades.descripcion','titulo','actividades.imagen','fecha_inicio','fecha_fin', 'organizaciones.nombre as organizacion_nombre', 'actividades.latitud', 'actividades.longitud','actividades.email', 'actividades.telefono', 'actividades.website'])
             ->join('organizaciones', 'organizaciones.id','=','actividades.organizacion_id')->findOrFail($id);
         if($actividad->imagen){
             $actividad->imagen = '/uploads/images/actividades/'.$actividad->imagen;
