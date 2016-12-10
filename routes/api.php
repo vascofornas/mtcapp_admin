@@ -36,4 +36,6 @@ Route::group(['namespace' => 'Api','middleware' => 'cors'], function () {
     Route::get('/que-necesito/organizaciones/{id}', 'QueNecesitoController@organizaciones');
 
     Route::get('/zonas-wifi', 'ZonasWifiController@index');
+
+    Route::get('/emails', 'EmailsController@index');
 });
