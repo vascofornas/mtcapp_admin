@@ -21,7 +21,6 @@ Route::get('/user', function (Request $request) {
 
 Route::group(['namespace' => 'Api','middleware' => 'cors'], function () {
 
-    /* Why u no restful */
     Route::get('/que-hacer', 'QueHacerController@index');
     Route::get('/que-hacer/concejalia/{id}', 'QueHacerController@concejalia');
     Route::get('/que-hacer/tipo-actividad/{id}', 'QueHacerController@concejalia');
@@ -38,4 +37,5 @@ Route::group(['namespace' => 'Api','middleware' => 'cors'], function () {
     Route::get('/zonas-wifi', 'ZonasWifiController@index');
 
     Route::get('/emails', 'EmailsController@index');
+    Route::get('/vales', 'ValesController@index');
 });

@@ -17,8 +17,9 @@ class ValesController extends Controller {
     protected $path = 'vales';
 
 	function index(){
+		
 		/*
-		CREATE TABLE `vales` (
+        "CREATE TABLE `vales` (
 		 `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
 		 `titulo` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
 		 `image` varchar(255) COLLATE utf8_unicode_ci NULL,
@@ -30,8 +31,8 @@ class ValesController extends Controller {
 		 `created_at` timestamp NULL DEFAULT NULL,
 		 `updated_at` timestamp NULL DEFAULT NULL,
 		 PRIMARY KEY (`id`)
-		) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
-		*/
+		) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci"
+        */
 
         $grid = DataGrid::source(new Vale());
         //$grid->add('name','Nombre', true); //field name, label, sortable
