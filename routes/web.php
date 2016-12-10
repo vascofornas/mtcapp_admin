@@ -47,6 +47,12 @@ Route::group(['middleware' => 'auth', 'prefix' => '/panel', 'namespace' => 'Pane
     Route::get('zonas-wifi', 'ZonasWifiController@index');
     Route::any('zonas-wifi/editar/{id}', 'ZonasWifiController@editar');
 
+    Route::get('emails', 'EmailsController@index');
+    Route::any('emails/editar/{id}', 'EmailsController@editar');
+
+    Route::get('vales', 'ValesController@index');
+    Route::any('vales/editar/{id}', 'ValesController@editar');    
+
 });
 
 

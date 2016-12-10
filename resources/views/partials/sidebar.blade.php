@@ -6,6 +6,9 @@
                     <i class="icon-speedometer"></i> Bienvenidos</a>
             </li>
             <li class="nav-item">
+                <hr />
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="{{ url('/panel/actividades') }}">
                     <i class="icon-speedometer"></i> Actividades</a>
             </li>
@@ -40,7 +43,15 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{ url('/panel/zonas-wifi') }}">
                     <i class="icon-speedometer"></i> Zonas Wifi</a>
-            </li>            
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url('/panel/emails') }}">
+                    <i class="icon-speedometer"></i> Emails (+Consúltanos)</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url('/panel/vales') }}">
+                    <i class="icon-speedometer"></i> Vales descuento</a>
+            </li>
             <li class="nav-item">
                 <hr />
             </li>
