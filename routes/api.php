@@ -38,4 +38,7 @@ Route::group(['namespace' => 'Api','middleware' => 'cors'], function () {
 
     Route::get('/emails', 'EmailsController@index');
     Route::get('/vales', 'ValesController@index');
+
+    Route::post('/suscribirse/alta', 'SuscripcionesController@alta');
+    Route::post('/suscribirse/baja', 'SuscripcionesController@baja');
 });
