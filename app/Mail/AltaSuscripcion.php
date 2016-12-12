@@ -32,7 +32,13 @@ class AltaSuscripcion extends Mailable
      */
     public function build()
     {
+        $address = 'admin@mtcapp.com';
+        $name = 'App Muevete 3 Cantos';
+        $subject = 'Solicitud Alta Casa de la Juventud';
+
         return $this->view('emails.alta')
+            ->from($address, $name)
+            ->subject($subject)        
             ->with(['email'=>$this->email, 'movil'=>$this->movil]);
     }
 }
