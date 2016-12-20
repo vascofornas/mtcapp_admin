@@ -57,7 +57,7 @@
 		this.isInline = false;
 		this.isVisible = false;
 		this.isInput = this.element.is('input');
-		this.fontAwesome = options.fontAwesome || this.element.data('font-awesome') || false;
+		this.fontAwesome = options.fontAwesome || this.element.data('font-awesome') || true;
 
 		this.bootcssVer = options.bootcssVer || (this.isInput ? (this.element.is('.form-control') ? 3 : 2) : ( this.bootcssVer = this.element.is('.input-group') ? 3 : 2 ));
 
@@ -502,8 +502,8 @@
 
 			top = top - containerOffset.top;
 			left = left - containerOffset.left;
-			
-			top = top + document.body.scrollTop
+
+			if(this.container != 'body') top = top + document.body.scrollTop
 
 			this.picker.css({
 				top:    top,
@@ -1787,7 +1787,9 @@
 		}
 	);
 	$(function () {
-		$('[data-provide="datetimepicker-inline"]').datetimepicker();
+		$('[data-provide="datetimepicker-inline"]').datetimepicker({
+			fontAwesome: true
+		});
 	});
 
 }(window.jQuery);

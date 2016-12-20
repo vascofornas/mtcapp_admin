@@ -9,6 +9,7 @@ use App\Models\TipoActividad;
 use App\Models\Actividad;
 
 use Carbon\Carbon;
+use DB;
 
 class QueHacerController extends Controller {
 
@@ -32,7 +33,7 @@ class QueHacerController extends Controller {
     function concejalia($id=0){
         /* Devolvemos el listado de actividades que corresponden a una concejalia */
         $actividades = Actividad::select(['actividades.id','titulo','actividades.imagen','fecha_inicio','fecha_fin', 'organizaciones.nombre as organizacion_nombre'])
-            ->join('organizaciones', 'organizaciones.id','=','actividades.organizacion_id')
+            ->leftJoin('organizaciones', 'organizaciones.id','=','actividades.organizacion_id')
             ->where('concejalia_id','=', $id)->orderBy('titulo')->get();
         return ['actividades'=>$this->prepararActividades($actividades)];
     }
@@ -40,7 +41,7 @@ class QueHacerController extends Controller {
     function tipo_actividad($id=0){
         /* Devolvemos el listado de actividades que corresponden a un tipo de actividad */
         $actividades = Actividad::select(['actividades.id','titulo','actividades.imagen','fecha_inicio','fecha_fin', 'organizaciones.nombre as organizacion_nombre'])
-            ->join('organizaciones', 'organizaciones.id','=','actividades.organizacion_id')
+            ->leftJoin('organizaciones', 'organizaciones.id','=','actividades.organizacion_id')
             ->where('tipo_actividad_id','=', $id)->orderBy('titulo')->get();
         return ['actividades'=>$this->prepararActividades($actividades)];
     }
@@ -76,15 +77,16 @@ class QueHacerController extends Controller {
         if($d < 10) $d = '0'.$d;
 
         $actividades = Actividad::select(['actividades.id','titulo','actividades.imagen','fecha_inicio','fecha_fin', 'organizaciones.nombre as organizacion_nombre'])
-            ->join('organizaciones', 'organizaciones.id','=','actividades.organizacion_id')
+            ->leftJoin('organizaciones', 'organizaciones.id','=','actividades.organizacion_id')
             ->whereRaw( '"'.$y.'-'.$m.'-'.$d.'" BETWEEN DATE(fecha_inicio) AND DATE(fecha_fin)' )
             ->orderBy('titulo')->get();
+
         return ['actividades'=>$this->prepararActividades($actividades)];
     }
 
     function detalle($id=0){
         $actividad = Actividad::select(['actividades.id','actividades.descripcion','titulo','actividades.imagen','fecha_inicio','fecha_fin', 'organizaciones.nombre as organizacion_nombre', 'actividades.latitud', 'actividades.longitud','actividades.email', 'actividades.telefono', 'actividades.website'])
-            ->join('organizaciones', 'organizaciones.id','=','actividades.organizacion_id')->findOrFail($id);
+            ->leftJoin('organizaciones', 'organizaciones.id','=','actividades.organizacion_id')->findOrFail($id);
         if($actividad->imagen){
             $actividad->imagen = '/uploads/images/actividades/'.$actividad->imagen;
         }

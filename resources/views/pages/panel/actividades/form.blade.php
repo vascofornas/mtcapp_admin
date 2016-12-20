@@ -27,5 +27,6 @@
 @endsection
 
 @section('scripts')
+    <script>window.initialize = function(){};</script>
     {!! Rapyd::scripts() !!}
 @endsection
