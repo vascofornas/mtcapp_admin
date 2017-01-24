@@ -94,14 +94,17 @@ class ActividadesController extends Controller
 
         if(!$id){
             $form->add('fecha_inicio', 'Fecha de Inicio', 'datetime')->rule('required|after:yesterday');
-            $form->add('fecha_fin', 'Fecha Finalización', 'datetime')->rule('after:fecha_inicio');
+            $form->add('fecha_fin', 'Fecha Finalización', 'datetime')
+                ->extra('<br />Dejar vacio si el evento dura un solo día<br />')->rule('after:fecha_inicio');
         } else {
             $form->add('fecha_inicio', 'Fecha de Inicio', 'datetime')->rule('required');
-            $form->add('fecha_fin', 'Fecha Finalización', 'datetime')->rule('after:fecha_inicio');
+            $form->add('fecha_fin', 'Fecha Finalización', 'datetime')
+                ->extra('<br />Dejar vacio si el evento dura un solo día<br />')->rule('after:fecha_inicio');
         }
 
         $form->saved(function() use ($form, $id)
         {
+
             if(!$id){
                 $form->message("Actividad creada correctamente");
             } else {
